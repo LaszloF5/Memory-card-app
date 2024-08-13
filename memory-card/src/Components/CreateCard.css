@@ -1,0 +1,36 @@
+.form {
+    width: 450px;
+    height: 170px;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px auto;
+    border: 2px solid black;
+}
+
+.form [type="text"] {
+    margin: 10px;
+    padding: 2px;
+}
+
+.btn-submit {
+    width: 100px;
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: rgb(97,218,251);
+    cursor: pointer;
+}
+
+.game-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px auto;
+    padding: 30px auto;
+    border: 1px solid black;
+    flex-wrap: wrap;
+  }
