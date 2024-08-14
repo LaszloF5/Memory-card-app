@@ -1,12 +1,32 @@
 import React from "react";
 import "./Card.css";
 
-export default function Card ({frontValue, backValue, handleDelete, index}) {
-    return (
-        <div className="card card-front">
-            <a className="card-delete" href="#" onClick={() => handleDelete(index)}>X</a>
-            <p className="card-text">{frontValue}</p>
-            <p className="card-text-hidden">{backValue}</p>
-        </div>
-    );
+export default function Card({
+  frontValue,
+  handleFlip,
+  isFlipped,
+  backValue,
+  handleDelete,
+  index,
+}) {
+  return (
+    <div
+      className={`card ${isFlipped ? "flipped" : ""}`}
+      onClick={() => handleFlip(index)}
+    >
+      <div className="card-content">
+        <a
+          className="card-delete"
+          href="#"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(index);
+          }}
+        >
+          X
+        </a>
+        {isFlipped ? <p>{backValue}</p> : <p>{frontValue}</p>}
+      </div>
+    </div>
+  );
 }

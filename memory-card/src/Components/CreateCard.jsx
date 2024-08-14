@@ -7,9 +7,6 @@ export default function CreateCard() {
   const [tempBackValue, setTempBackValue] = React.useState("");
   const [values, setValues] = React.useState([]);
 
-  //   const [frontValue, setFrontValue] = React.useState("");
-  //   const [backValue, setBackValue] = React.useState("");
-
   const [cards, setCards] = React.useState([]);
 
   const handleSubmit = (e) => {
@@ -29,14 +26,16 @@ export default function CreateCard() {
       alert("Please fill both fields");
       return;
     }
-    const newCard = { frontValue: tempFrontValue, backValue: tempBackValue };
+    const newCard = {
+      frontValue: tempFrontValue,
+      backValue: tempBackValue,
+      isFlipped: false,
+    };
     if (values.includes(tempFrontValue)) {
-        alert("This frontside value already exists. Please add a new value.");
-        return;
+      alert("This frontside value already exists. Please add a new value.");
+      return;
     }
-    setValues([...values, tempFrontValue])
-    // const values = cards.map((card) => card.frontValue);
-    // console.log(values);
+    setValues([...values, tempFrontValue]);
     setCards([...cards, newCard]);
 
     setTempFrontValue("");
@@ -44,7 +43,21 @@ export default function CreateCard() {
   };
 
   const handleDelete = (index) => {
+    let deleteValue = cards[index].frontValue;
+    setValues(values.filter((value) => value !== deleteValue));
     setCards(cards.filter((_, i) => i !== index));
+  };
+
+  const handleFlip = (index) => {
+    setCards(
+      cards.map((card, i) => {
+        if (i === index) {
+          return { ...card, isFlipped: !card.isFlipped };
+        } else {
+          return card;
+        }
+      })
+    );
   };
 
   return (
@@ -78,6 +91,8 @@ export default function CreateCard() {
         {cards.map((card, index) => (
           <Card
             handleDelete={handleDelete}
+            handleFlip={handleFlip}
+            isFlipped={card.isFlipped}
             key={index}
             frontValue={card.frontValue}
             backValue={card.backValue}
